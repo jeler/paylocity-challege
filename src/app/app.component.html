@@ -1,0 +1,67 @@
+<div class="employee-page">
+  <div *ngIf="employees.length == 0" class="no-employee-message">To Begin, Please add an employee</div>
+  <div class="employee-form-container">
+      <div class="employee-form-container" *ngFor="let employee of employees.controls; index as employeeIndex" class="employee-form-container">
+        <mat-card class="mat-elevation-z8"[formGroup]="employee">
+          <mat-card-title>Employee {{employeeIndex + 1}}</mat-card-title>
+          <div class="employee-form">
+            <mat-form-field class="form-field">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" required>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" required>
+            </mat-form-field>
+          </div>
+         
+          <div formArrayName="dependents" class="dependent-container">
+            <div *ngFor="let dependent of getDeps(employeeIndex).controls; let dependentIndex=index">
+              <mat-card [formGroupName]="dependentIndex">
+                  <mat-card-title>Dependent {{dependentIndex + 1}}</mat-card-title>
+                  <div>
+                    <mat-form-field class="form-field">
+                      <mat-label>Dependent First Name</mat-label>
+                      <input matInput formControlName="firstName" required>
+                    </mat-form-field>
+                    <mat-form-field class="form-field">
+                      <mat-label>Dependent Last Name</mat-label>
+                      <input matInput formControlName="lastName" required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-raised-button color="warn" (click)="removeDependent(employeeIndex, dependentIndex)">
+                        <mat-icon>person_remove_alt_1</mat-icon>
+                        <span class="button-text">Remove Dependent</span>
+                      </button>
+                    </div>
+                  </div>
+                  </mat-card>
+              </div>
+              <div class="button-row">
+                <button mat-raised-button style="justify-self: end" color="accent" (click)="addDependent(employeeIndex)">
+                  <mat-icon>person_add_alt</mat-icon>
+                  <span class="button-text">Add Dependent</span>
+                </button>
+              </div>
+              </div>
+            <div class="remove-button-row">
+              <button mat-raised-button color="warn" (click)="removeEmployee(employeeIndex)">
+                <mat-icon>
+                  person_remove
+                </mat-icon>
+                <span class="button-text">
+                  Remove Employee
+                </span>
+              </button>
+            </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="add-employee-button-row">
+    <button mat-raised-button color="primary" (click)="addEmployee()">
+      <mat-icon>person_add</mat-icon>
+      <span class="button-text">Add Employee</span>
+    </button>
+  </div>
+    <mat-card- style="text-align:center">Your Calculated Cost is: {{cost | currency: 'USD'}}</mat-card-title>
+</div>
