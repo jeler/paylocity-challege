@@ -63,5 +63,8 @@
       <span class="button-text">Add Employee</span>
     </button>
   </div>
-    <mat-card- style="text-align:center">Your Calculated Cost is: {{cost | currency: 'USD'}}</mat-card-title>
+  <div style="text-align:center">
+    <mat-card-title class="calculated-salary">Your Calculated Benefit Cost is: {{cost | currency: 'USD'}}</mat-card-title>
+    <mat-card-title style="color: green">Your Net Salary: {{yearlySalary | currency: 'USD'}}</mat-card-title>
+  </div>
 </div>

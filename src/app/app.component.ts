@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
 
   employees = new FormArray([]);
   cost: number = 0;
+  yearlySalary: number = 2000 * 26;
 
   constructor(
     private fb: FormBuilder
@@ -20,9 +21,7 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // this.addEmployee();
     this.calculateCost();
-    console.log(this.employees, 'dis employees')
   }
   
   getDeps(employeeIndex: number) {
@@ -31,12 +30,9 @@ export class AppComponent implements OnInit {
 
 
   addEmployee(): void {
-    // const employees = this.employees.get('employees') as FormArray;
     const employeeForm = this.fb.group({
       firstName: null,
       lastName: null,
-      salary: 2000,
-      // dependents: this.fb.array([this.addDep()])
       dependents: this.fb.array([])
     })
     this.employees.push(employeeForm);
@@ -88,7 +84,8 @@ export class AppComponent implements OnInit {
       })
     ).subscribe(c => {
       this.cost = c;
-      console.log(this.cost);
+      this.yearlySalary = this.yearlySalary - c;
+      console.log(this.yearlySalary);
     })
   }
   
